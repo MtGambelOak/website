@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Lucas Pearce{% endblock %}
+
+{% block meta %}
+<meta name="description" content="Lucas Pearce's personal website. Computer Science and Linguistics student at the University of Utah, interested in NLP and GIS." />
+{% endblock %}
+
+{% block og_title %}Lucas Pearce{% endblock %}
+{% block og_description %}Computer Science and Linguistics student at the University of Utah, interested in NLP and GIS.{% endblock %}
+{% block twitter_title %}Lucas Pearce{% endblock %}
+{% block twitter_description %}Computer Science and Linguistics student at the University of Utah, interested in NLP and GIS.{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Lucas Pearce",
+  "url": "{{ site_base_url }}",
+  "sameAs": [
+    "https://github.com/MtGambelOak",
+    "https://www.linkedin.com/in/lucaspearce"
+  ]
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/pages/home.css?v={{ build_version }}" />
+{% endblock %}
+
+{% block main %}
+<section class="intro" aria-label="Introduction">
+  <figure class="intro-media">
+    <picture>
+      <source srcset="/static/images/lucas.webp" type="image/webp" />
+      <img
+        src="/static/images/lucas.png"
+        alt="Portrait of Lucas Pearce"
+        width="320"
+        height="427"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </picture>
+  </figure>
+
+  <div class="intro-content">
+    <p class="eyebrow">Hi, I'm Lucas</p>
+    <h1>I like to build things. My main areas of interest are NLP and GIS.</h1>
+    <p>
+      I graduated from the University of Utah in spring 2026 after majoring in Computer Science and Linguistics,
+      and I'm currently planning on returning in fall 2026 to get an MS in Computer Science. I'm very interested
+      in all things NLP, especially anything related to multilingual NLP and tokenization. I'm currently doing
+      a research project on extending byte-level tokenizers to multilingual LLMs with <a href="https://nlp.cs.utah.edu/" target="_blank" rel="noopener">UtahNLP</a>,
+      and am fortunate to be supervised by <a href="https://www.anamarasovic.com/" target="_blank" rel="noopener">Dr. Ana Marasović</a> and <a href="https://sites.google.com/view/maitreymehta/home" target="_blank" rel="noopener">Maitrey Mehta</a>.
+    </p>
+    <p>
+      I also hold an interest in GIS and most things related to the natural world. During my senior year of college
+      I was part of an amazing team that created <a href="https://wherewild.net" target="_blank" rel="noopener">WhereWild</a>, an application that combines species occurrence
+      data with GIS data to create in-depth field guides for hundreds of thousands of species. I'm planning on continuing its
+      development and hopefully will post developer logs and updates on here semi-regularly.
+    </p>
+  </div>
+</section>
+{% endblock %}

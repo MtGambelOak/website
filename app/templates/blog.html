@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Blog — Lucas Pearce{% endblock %}
+{% block og_title %}Blog — Lucas Pearce{% endblock %}
+{% block og_description %}Writing on NLP, GIS, and things I find interesting.{% endblock %}
+{% block twitter_title %}Blog — Lucas Pearce{% endblock %}
+{% block twitter_description %}Writing on NLP, GIS, and things I find interesting.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/pages/blog.css?v={{ build_version }}" />
+{% endblock %}
+
+{% block main %}
+<div class="blog-header">
+  <h1>Blog</h1>
+</div>
+
+{% if posts %}
+<div class="post-list">
+  {% for post in posts %}
+  <a class="post-card" href="/blog/{{ post.slug }}/">
+    <h2 class="post-card-title">{{ post.title }}</h2>
+    <p class="post-card-meta">
+      {{ post.created | format_date }} &mdash; {{ post.reading_time }} min read
+    </p>
+    {% if post.excerpt %}
+    <p class="post-card-excerpt">{{ post.excerpt }}</p>
+    {% endif %}
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<p class="blog-empty">No posts yet. Check back soon.</p>
+{% endif %}
+{% endblock %}

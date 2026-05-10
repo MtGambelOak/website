@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} — Lucas Pearce{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.excerpt }}{% endblock %}
+{% block twitter_title %}{{ post.title }}{% endblock %}
+{% block twitter_description %}{{ post.excerpt }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/pages/post.css?v={{ build_version }}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+{% endblock %}
+
+{% block content %}
+<div class="post-layout" id="main-content">
+  <nav id="toc-sidebar" aria-label="Table of contents">
+    <h2>On this page</h2>
+    <ul id="toc-list"></ul>
+  </nav>
+
+  <article id="post-content">
+    <a class="back-link" href="/blog/">&larr; Blog</a>
+    <div class="post-meta">
+      <span>{{ post.created | format_date }}</span>
+      {% if post.updated != post.created %}
+      <span>Updated {{ post.updated | format_date }}</span>
+      {% endif %}
+      <span>{{ post.reading_time }} min read</span>
+    </div>
+  </article>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script>
+  const POST_SLUG = {{ post.slug | tojson }};
+
+  fetch('/blog/posts/' + POST_SLUG + '.md')
+    .then(r => r.text())
+    .then(raw => render(raw.replace(/!\[\[.*?\]\]/g, '')));
+
+  function render(RAW) {
+    const mathStore = [];
+    const protected_ = RAW
+      .replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => {
+        mathStore.push({ tex, display: true });
+        return `MATH_PLACEHOLDER_${mathStore.length - 1}_END`;
+      })
+      .replace(/\$([^\n$]+?)\$/g, (_, tex) => {
+        mathStore.push({ tex, display: false });
+        return `MATH_PLACEHOLDER_${mathStore.length - 1}_END`;
+      });
+
+    const contentEl = document.getElementById('post-content');
+    contentEl.innerHTML += marked.parse(protected_);
+
+    contentEl.querySelectorAll('*').forEach(node => {
+      node.childNodes.forEach(child => {
+        if (child.nodeType !== Node.TEXT_NODE) return;
+        const text = child.textContent;
+        if (!text.includes('MATH_PLACEHOLDER_')) return;
+        const span = document.createElement('span');
+        span.innerHTML = text.replace(/MATH_PLACEHOLDER_(\d+)_END/g, (_, i) => {
+          const { tex, display } = mathStore[+i];
+          try { return katex.renderToString(tex, { displayMode: display, throwOnError: false }); }
+          catch { return tex; }
+        });
+        child.replaceWith(span);
+      });
+    });
+
+    const headings = contentEl.querySelectorAll('h1, h2, h3');
+    const seenIds = {};
+    headings.forEach(h => {
+      let base = h.textContent.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+      if (!base) base = 'section';
+      const count = seenIds[base] = (seenIds[base] || 0) + 1;
+      h.id = count === 1 ? base : `${base}-${count - 1}`;
+    });
+
+    const tocList = document.getElementById('toc-list');
+    headings.forEach(h => {
+      const depth = parseInt(h.tagName[1]);
+      const li = document.createElement('li');
+      li.dataset.depth = depth;
+      const a = document.createElement('a');
+      a.href = `#${h.id}`;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    const linkMap = {};
+    tocList.querySelectorAll('a').forEach(a => { linkMap[a.getAttribute('href').slice(1)] = a; });
+    let activeId = null;
+
+    function updateActive() {
+      const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 10;
+      const threshold = window.scrollY + window.innerHeight * 0.2;
+      let current = atBottom ? headings[headings.length - 1] : headings[0];
+      if (!atBottom) for (const h of headings) {
+        if (h.offsetTop <= threshold) current = h;
+        else break;
+      }
+      const newId = current ? current.id : null;
+      if (newId === activeId) return;
+      if (activeId && linkMap[activeId]) linkMap[activeId].classList.remove('active');
+      if (newId && linkMap[newId]) linkMap[newId].classList.add('active');
+      activeId = newId;
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+  }
+</script>
+{% endblock %}

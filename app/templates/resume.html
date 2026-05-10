@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Resume/CV — Lucas Pearce{% endblock %}
+{% block og_title %}Resume/CV — Lucas Pearce{% endblock %}
+{% block og_description %}Resume of Lucas Pearce.{% endblock %}
+{% block twitter_title %}Resume — Lucas Pearce{% endblock %}
+{% block twitter_description %}Resume of Lucas Pearce.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/pages/resume.css?v={{ build_version }}" />
+{% endblock %}
+
+{% block main %}
+<div class="resume-header">
+  <h1>Resume/CV</h1>
+  <div class="resume-actions">
+    <a href="/static/Resume.pdf" target="_blank" rel="noopener" class="btn">Open PDF</a>
+    <a href="/static/Resume.pdf" download="Lucas_Pearce_Resume.pdf" class="btn btn-secondary">Download</a>
+  </div>
+</div>
+<iframe
+  src="/static/Resume.pdf"
+  class="resume-iframe"
+  title="Lucas Pearce Resume"
+  loading="lazy"
+>
+  <p>Your browser doesn't support PDF embeds. <a href="/static/Resume.pdf">Download it here.</a></p>
+</iframe>
+{% endblock %}

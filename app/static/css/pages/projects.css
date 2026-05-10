@@ -1,0 +1,72 @@
+.projects-header {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.projects-header h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  color: var(--main-text);
+  margin: 0 0 0.4rem;
+}
+
+.projects-header p {
+  margin: 0;
+  color: var(--text);
+}
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid var(--border);
+  padding-left: 1.75rem;
+  margin-left: 0.5rem;
+  gap: 2.5rem;
+}
+
+.project {
+  position: relative;
+}
+
+.project::before {
+  content: '';
+  position: absolute;
+  left: -2.25rem;
+  top: 0.35rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  outline: 2px solid var(--accent);
+}
+
+.project-timeline-marker {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+
+.project h2 {
+  font-size: 1.2rem;
+  color: var(--main-text);
+  margin: 0 0 0.6rem;
+}
+
+.project p {
+  color: var(--text);
+  line-height: 1.7;
+  margin: 0 0 0.75rem;
+}
+
+.project a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.project a:hover { text-decoration: underline; }

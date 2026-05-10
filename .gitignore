@@ -1,1 +1,4 @@
 .claude/
+website-old/
+dist/
+__pycache__/

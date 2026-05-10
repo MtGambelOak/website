@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Projects — Lucas Pearce{% endblock %}
+{% block og_title %}Projects — Lucas Pearce{% endblock %}
+{% block og_description %}Personal projects by Lucas Pearce — NLP, GIS, and more.{% endblock %}
+{% block twitter_title %}Projects — Lucas Pearce{% endblock %}
+{% block twitter_description %}Personal projects by Lucas Pearce — NLP, GIS, and more.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/pages/projects.css?v={{ build_version }}" />
+{% endblock %}
+
+{% block main %}
+<div class="projects-header">
+  <h1>Projects</h1>
+  <p>Things I've built or am building.</p>
+</div>
+
+<div class="project-list">
+
+  <article class="project">
+    <div class="project-timeline-marker">Fall 2025 — Present</div>
+    <h2>WhereWild</h2>
+    <p>
+      Senior capstone project combining iNaturalist observation data with GIS data to provide in-depth field guides
+      and habitat insights for hundreds of thousands of species. Do in-depth analysis as to how species relate to the
+      environment and each other, find species suitable for your region, and upload custom data with ease.
+    </p>
+    <a href="https://wherewild.net" target="_blank" rel="noopener">Visit wherewild.net &rarr;</a>
+  </article>
+
+  <article class="project">
+    <div class="project-timeline-marker">Summer 2024</div>
+    <h2>PitchParse</h2>
+    <p>
+      Generates custom Japanese study decks by filtering vocab lists on frequency, minimal pairs, and learner status.
+      Built to give pitch-accent learners structured practice based on guidance in the NHK Pitch Accent Dictionary.
+      Ships with accent data compiled from various sources and a Yomitan dictionary to match.
+    </p>
+    <a href="https://github.com/MtGambelOak/pitchparse" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+  </article>
+
+</div>
+{% endblock %}

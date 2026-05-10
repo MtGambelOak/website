@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}404 — Lucas Pearce{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/pages/not-found.css?v={{ build_version }}" />
+{% endblock %}
+
+{% block main %}
+<div class="not-found">
+  <img src="/static/images/default.ico" alt="" aria-hidden="true" class="not-found-icon" />
+  <h1>Page not found.</h1>
+  <p>You're cooked. This page doesn't exist.</p>
+  <a href="/" class="btn">Take me home</a>
+</div>
+{% endblock %}

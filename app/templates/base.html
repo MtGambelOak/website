@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Lucas Pearce{% endblock %}</title>
+  {% block meta %}
+  <meta name="description" content="Lucas Pearce's personal website." />
+  {% endblock %}
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lucas Pearce" />
+  <meta property="og:title" content="{% block og_title %}Lucas Pearce{% endblock %}" />
+  <meta property="og:description" content="{% block og_description %}Lucas Pearce's personal website.{% endblock %}" />
+  <meta property="og:url" content="{{ canonical_url }}" />
+  <meta property="og:image" content="{{ site_base_url }}/static/images/lucas.webp" />
+  <meta property="og:image:alt" content="Portrait of Lucas Pearce" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{% block twitter_title %}Lucas Pearce{% endblock %}" />
+  <meta name="twitter:description" content="{% block twitter_description %}Lucas Pearce's personal website.{% endblock %}" />
+  <meta name="twitter:image" content="{{ site_base_url }}/static/images/lucas.webp" />
+  <meta name="twitter:image:alt" content="Portrait of Lucas Pearce" />
+
+  {% block jsonld %}{% endblock %}
+
+  <link rel="icon" href="/static/images/default.ico" sizes="any" />
+  <link rel="stylesheet" href="/static/css/base.css?v={{ build_version }}" />
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header-top">
+      <a class="site-header-title" href="/">Lucas Pearce</a>
+      <nav class="site-header-nav" aria-label="Primary">
+        <ul>
+          <li><a href="/" {% if active_page == 'home' %}class="active" aria-current="page"{% endif %}>Home</a></li>
+          <li><a href="/projects/" {% if active_page == 'projects' %}class="active" aria-current="page"{% endif %}>Projects</a></li>
+          <li><a href="/resume/" {% if active_page == 'resume' %}class="active" aria-current="page"{% endif %}>Resume/CV</a></li>
+          <li><a href="/blog/" {% if active_page == 'blog' %}class="active" aria-current="page"{% endif %}>Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  {% block content %}
+  <main id="main-content">
+    {% block main %}{% endblock %}
+  </main>
+  {% endblock %}
+
+  <footer class="site-footer">
+    <div class="footer-cluster">
+      <div class="footer-icons">
+        <a href="https://github.com/MtGambelOak" target="_blank" rel="noopener" class="icon-btn" aria-label="GitHub">
+          <picture>
+            <source srcset="/static/images/github-mark-white.webp" type="image/webp" media="(prefers-color-scheme: dark)" />
+            <source srcset="/static/images/github-mark.webp" type="image/webp" />
+            <img src="/static/images/github-mark.png" alt="" />
+          </picture>
+          <span class="sr-only">GitHub</span>
+        </a>
+        <a href="https://www.linkedin.com/in/lucaspearce" target="_blank" rel="noopener" class="icon-btn" aria-label="LinkedIn">
+          <picture>
+            <source srcset="/static/images/InBug-White.webp" type="image/webp" media="(prefers-color-scheme: dark)" />
+            <source srcset="/static/images/InBug-Black.webp" type="image/webp" />
+            <img src="/static/images/InBug-Black.png" alt="" />
+          </picture>
+          <span class="sr-only">LinkedIn</span>
+        </a>
+        <a href="https://www.inaturalist.org/people/gambel" target="_blank" rel="noopener" class="icon-btn" aria-label="iNaturalist">
+          <picture>
+            <source srcset="/static/images/inat.webp" type="image/webp" />
+            <img src="/static/images/inat.png" alt="" />
+          </picture>
+          <span class="sr-only">iNaturalist</span>
+        </a>
+        <a href="https://buymeacoffee.com/gambeldev" target="_blank" rel="noopener" class="icon-btn" aria-label="Buy Me a Coffee">
+          <picture>
+            <source srcset="/static/images/bmc_yellow.webp" type="image/webp" />
+            <img src="/static/images/bmc_yellow.png" alt="" />
+          </picture>
+          <span class="sr-only">Buy Me a Coffee</span>
+        </a>
+      </div>
+      <img src="/static/images/default.ico" alt="" aria-hidden="true" class="footer-emblem" />
+    </div>
+    <span>&copy; {{ current_year }} Lucas Pearce &mdash;</span>
+    <a href="mailto:lucaspearce28@gmail.com">lucaspearce28@gmail.com</a>
+  </footer>
+</body>
+</html>
