@@ -124,10 +124,8 @@
     mountGiscus();
   }
 
-  const GISCUS_BASE = '{{ site_base_url }}/static/css/giscus';
-
   function giscusTheme() {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'transparent_dark' : 'light';
   }
 
   function mountGiscus() {
@@ -147,14 +145,14 @@
     script.setAttribute('data-emit-metadata', '0');
     script.setAttribute('data-input-position', 'bottom');
     script.setAttribute('data-lang', 'en');
-    script.setAttribute('data-theme', `${GISCUS_BASE}-${giscusTheme()}.css`);
+    script.setAttribute('data-theme', giscusTheme());
     container.appendChild(script);
 
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
       const iframe = document.querySelector('iframe.giscus-frame');
       if (iframe?.contentWindow) {
         iframe.contentWindow.postMessage(
-          { giscus: { setConfig: { theme: `${GISCUS_BASE}-${giscusTheme()}.css` } } },
+          { giscus: { setConfig: { theme: giscusTheme() } } },
           'https://giscus.app'
         );
       }
