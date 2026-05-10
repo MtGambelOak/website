@@ -26,4 +26,4 @@ It's also possible the next iteration will only support plants and fungi, at lea
 
 # How do I follow along?
 
-Well, assuming anyone actually reads this first post (unlikely), you can keep checking back here, and I'll hopefully post updates about how it's going every once in a while. I might add a blog section on the WhereWild website as well where updates can go as well. You can also join the [public Discord server](https://discord.gg/q4PredRSjw) I made where the project will be discussed and people will ask questions.
+Well, assuming anyone actually reads this first post (unlikely), you can keep checking back here, and I'll hopefully post updates about how it's going every once in a while. I might add a blog section on the WhereWild website as well where updates can go as well. You can also join the [public Discord server](https://discord.gg/q4PredRSjw) I made where the project will be discussed and people can ask questions.
