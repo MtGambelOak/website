@@ -1,0 +1,29 @@
+# The Future of WhereWild
+
+This past year was the last of my undergrad, and as such I had to complete a Senior Capstone project spanning the entire year. I was very fortunate to be able to propose an idea of my own and see it come to fruition, and had 3 amazing teammates help me build it along the way. The final result was [WhereWild](https://wherewild.net), and I couldn't have been more happy with how it turned out. We ended up winning an honorable mention at demo day, and I think we built something unique and super cool.
+
+That being said, there's still so much I want to do. Capstone is over, but I want to keep working on WhereWild for the love of the game. I think it has so much potential to be even better than it is now, and I still have so many features I can't stop daydreaming about. WhereWild has been moved to [GitHub](https://github.com/WhereWild) and will be open source and free forever! I'm also planning on writing about its development and posting updates here. I think writing about the process helps me think things through, and also do things the right way.
+
+# Immediate Next Steps?
+
+One of the main things I was dissatisfied with over the last year was the speed that we were required to develop WhereWild with. We had two semesters, but the first was mostly forming teams and planning, with only a few weeks of coding to make a crude demo at the end. Since the demo had to be rushed to much, we couldn't use most of its code, and I had to rebuild most of the backend in a span of a few weeks over winter break so we would have a nice base to work off of. The second semester we only had around 12 weeks for coding, and with all of us being full time students, we couldn't commit more than 10-15 hours per week to WhereWild.
+
+On one hand, the deadlines helped keep us on track and accountable. And it was definitely fun making very rapid progress and seeing the interesting results of the project appear in real time. I'm pretty in awe of everything we were able to get done, and I'm super happy we were able to make it that far.
+
+On the other hand, things were _very_ rushed, and this caused the quality of many things to suffer. The backend was over 30,000 lines of code, and the frontend was nearly twice as much (or maybe even more, I don't exactly remember!). If we're assuming 80,000 lines of code, that's a _lot_ to write over 12 weeks with only 40 hours of coding time available to the team throughought the week at a maximum. Naturally, we had to rely on AI coding assistance a LOT. I definitely wouldn't say I'm against AI coding, but you need to be careful to manage code quality and hallucinations to make sure you don't end up with a buggy mess of slop in the end. Unfortunately, we didn't have time to do this, since writing the code already took long enough, so reviewing it was mostly out of the question. There were many massive PRs we had to merge without reading nearly any code because "it seemed to work" and we didn't have time to really dig into it. Exacerbated by this was the fact I neglected to write any backend tests until halfway through, and had to add them in halfway in the form of a massive PR full of monkeypatched tests that passed, but probably weren't all valid.
+
+In short, the current code is very hacky. And it technically works, but it needs to be better. Most of the hard work of discovering what needs to be done is already there. What needs to be done is a rewrite, at least of the backend, with proper testing and code review practices from the start.
+
+# What Will Happen to WhereWild in the Meantime?
+
+I'm actually not entirely sure. Currently, the website is hosted on my teammate Kelly's home server. I assume that's not great in the long term, but last I checked it seems to still be up. Eventually it will need to be migrated to an actual professional VM service, but that might come after the backend refactor.
+
+I don't think most of the refactor will take longer than a few weeks. A lot of the machine learning stuff was very basic and very hacky, and will take a lot more time. But the core functionality of the species and search page is not too bad and already very powerful. I might get it up once that is done.
+
+Another topic is the home page. I think it has potential, but needs a LOT more thought and work to be robust. I think part of it is because we wanted a good place for users that are more novice to go to, but in the end, it didn't work very well. I think WhereWild has potential to appeal to both naturalists and the average person, but it makes a lot more sense for the first audience than the latter. I think much more focus on the naturalist audience makes sense for the future, and maybe in the far future we can circle back to a wider audience. Because of this, the homepage might undergo some big changes, and be something else entirely. As to what that will be, I'm not sure!
+
+It's also possible the next iteration will only support plants and fungi, at least for the forseeable future. There what I have more interest and experience with, and are also much easier to deal with, since they don't move around. Animals also involve a lot more observational data that takes a lot longer to process. But, we'll see.
+
+# How do I follow along?
+
+Well, assuming anyone actually reads this first post (unlikely), you can keep checking back here, and I'll hopefully post updates about how it's going every once in a while. I might add a blog section on the WhereWild website as well where updates can go as well. You can also join the [public Discord server](https://discord.gg/q4PredRSjw) I made where the project will be discussed and people will ask questions.

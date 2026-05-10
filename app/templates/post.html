@@ -35,6 +35,14 @@
 <script>
   const POST_SLUG = {{ post.slug | tojson }};
 
+  const renderer = new marked.Renderer();
+  renderer.link = ({ href, title, tokens }) => {
+    const text = tokens.map(t => t.raw).join('');
+    const titleAttr = title ? ` title="${title}"` : '';
+    return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
+  };
+  marked.use({ renderer });
+
   fetch('/blog/posts/' + POST_SLUG + '.md')
     .then(r => r.text())
     .then(raw => render(raw.replace(/!\[\[.*?\]\]/g, '')));
