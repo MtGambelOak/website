@@ -81,7 +81,7 @@ def write_sitemap(entries):
 
 def write_robots():
     (DIST / "robots.txt").write_text(
-        f"User-agent: *\nAllow: /\nSitemap: {SITE_BASE_URL}/sitemap.xml\n"
+        f"User-agent: *\nAllow: /\nDisallow: /secrets/\nSitemap: {SITE_BASE_URL}/sitemap.xml\n"
     )
 
 
@@ -99,6 +99,7 @@ if DIST.exists():
 DIST.mkdir()
 
 shutil.copytree(STATIC_DIR, DIST / "static")
+shutil.copytree(SRC / "secrets", DIST / "secrets")
 
 # Copy markdown source files so post.html can fetch them client-side
 dest_posts = DIST / "blog" / "posts"
