@@ -19,7 +19,7 @@ DEFAULT_SOURCE_DIR = ROOT / "app" / "static" / "images"
 SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 
 RESIZE_TARGETS: Dict[Path, Tuple[int, int]] = {
-    Path("app/static/images/lucas.png"): (320, 427),
+    Path("app/static/images/lucas.jpg"): (320, 427),
 }
 
 
