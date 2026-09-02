@@ -46,7 +46,7 @@
 
   fetch('/blog/posts/' + POST_SLUG + '.md')
     .then(r => r.text())
-    .then(raw => render(raw.replace(/!\[\[.*?\]\]/g, '')));
+    .then(raw => render(raw.replace(/^---\n[\s\S]*?\n---\n?/, '').replace(/!\[\[.*?\]\]/g, '')));
 
   function render(RAW) {
     const mathStore = [];

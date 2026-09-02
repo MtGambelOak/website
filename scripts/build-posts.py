@@ -2,6 +2,13 @@
 """
 Scan app/blog/posts/*.md and write app/blog/posts.json.
 Run this whenever you add or update a post.
+
+Dates for each post are resolved in this order:
+  1. `date:` / `created:` and `updated:` in an optional `---` frontmatter block
+  2. the value already in posts.json (so committed dates stay stable)
+  3. git history (first/last commit touching the file)
+  4. filesystem mtime
+Set `date:` in frontmatter to pin a post's date without needing a second push.
 """
 
 from __future__ import annotations
@@ -35,8 +42,35 @@ def fs_date(path: Path) -> str:
     return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat()
 
 
+def parse_frontmatter(text: str) -> tuple[dict, str]:
+    """Pull a leading `---` fenced block of simple `key: value` pairs."""
+    match = re.match(r'^---\n(.*?)\n---\n?', text, re.DOTALL)
+    if not match:
+        return {}, text
+    meta = {}
+    for line in match.group(1).splitlines():
+        if ':' not in line or line.strip().startswith('#'):
+            continue
+        key, _, value = line.partition(':')
+        meta[key.strip()] = value.strip().strip('"\'')
+    return meta, text[match.end():]
+
+
+def load_existing() -> dict:
+    if not OUTPUT.exists():
+        return {}
+    try:
+        return {p["slug"]: p for p in json.loads(OUTPUT.read_text(encoding="utf-8"))}
+    except (json.JSONDecodeError, KeyError, TypeError):
+        return {}
+
+
+EXISTING = load_existing()
+
+
 def extract_metadata(path: Path) -> dict:
     text = path.read_text(encoding="utf-8")
+    front, text = parse_frontmatter(text)
 
     title_match = re.search(r'^#\s+(.+)$', text, re.MULTILINE)
     title = title_match.group(1).strip() if title_match else path.stem
@@ -59,8 +93,15 @@ def extract_metadata(path: Path) -> dict:
     reading_time = max(1, round(word_count / WORDS_PER_MINUTE))
 
     created_git, updated_git = git_dates(path)
-    created = created_git or fs_date(path)
-    updated = updated_git or fs_date(path)
+    prev = EXISTING.get(path.stem, {})
+    created = (
+        front.get("date") or front.get("created")
+        or prev.get("created") or created_git or fs_date(path)
+    )
+    updated = (
+        front.get("updated") or front.get("date")
+        or updated_git or prev.get("updated") or fs_date(path)
+    )
 
     return {
         "slug": path.stem,
